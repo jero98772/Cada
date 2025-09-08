@@ -21,50 +21,50 @@ public class AdminTorneoController {
     @GetMapping
     public String list(Model model) {
         model.addAttribute("torneos", torneoService.findAll());
-        return "admin/torneos/list";
+        return "torneos/list";
     }
 
     @GetMapping("/nuevo")
     public String createForm(Model model) {
         model.addAttribute("torneo", new Torneo());
-        return "admin/torneos/form";
+        return "torneos/form";
     }
 
     @PostMapping
     public String create(@ModelAttribute @Valid Torneo torneo, BindingResult result) {
         if (result.hasErrors()) {
-            return "admin/torneos/form";
+            return "torneos/form";
         }
         torneoService.create(torneo);
-        return "redirect:/admin/torneos";
+        return "redirect:/torneos";
     }
 
     @GetMapping("/{id}/editar")
     public String editForm(@PathVariable Long id, Model model) {
         Torneo t = torneoService.findById(id).orElseThrow();
         model.addAttribute("torneo", t);
-        return "admin/torneos/form";
+        return "torneos/form";
     }
 
     @PostMapping("/{id}")
     public String update(@PathVariable Long id, @ModelAttribute @Valid Torneo torneo, BindingResult result) {
         if (result.hasErrors()) {
-            return "admin/torneos/form";
+            return "torneos/form";
         }
         torneoService.update(id, torneo);
-        return "redirect:/admin/torneos";
+        return "redirect:/torneos";
     }
 
     @PostMapping("/{id}/toggle-activo")
     public String toggle(@PathVariable Long id) {
         torneoService.toggleActivo(id);
-        return "redirect:/admin/torneos";
+        return "redirect:/torneos";
     }
 
     @PostMapping("/{id}/eliminar")
     public String delete(@PathVariable Long id) {
         torneoService.delete(id);
-        return "redirect:/admin/torneos";
+        return "redirect:/torneos";
     }
 }
 

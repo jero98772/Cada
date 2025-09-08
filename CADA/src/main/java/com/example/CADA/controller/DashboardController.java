@@ -26,13 +26,14 @@ public class DashboardController {
 
     @GetMapping("/dashboard")
     public String dashboard(Authentication auth, Model model) {
-        String username = auth.getName();
+        String username = auth != null ? auth.getName() : "test";
         Arbitro arbitro = arbitroService.findByUsername(username).orElse(null);
         List<Asignacion> asignaciones = arbitro == null ? List.of() : asignacionService.findByArbitroId(arbitro.getId());
         model.addAttribute("arbitro", arbitro);
         model.addAttribute("asignaciones", asignaciones);
-        return "dashboard/index";
+        return "dashboard"; // not "dashboard/index"
     }
+
 
     @PostMapping("/dashboard/asignacion/{id}/aceptar")
     public String aceptar(@PathVariable Long id) {
