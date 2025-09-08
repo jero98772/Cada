@@ -23,7 +23,7 @@ public class AdminArbitroController {
     @GetMapping
     public String list(Model model) {
         model.addAttribute("arbitros", arbitroService.findAll());
-        return "arbitros/list";
+        return "admin/arbitros/list";
     }
 
     @GetMapping("/nuevo")
@@ -31,7 +31,7 @@ public class AdminArbitroController {
         model.addAttribute("arbitro", new Arbitro());
         model.addAttribute("especialidades", Especialidad.values());
         model.addAttribute("escalafones", Escalafon.values());
-        return "arbitros/form";
+        return "admin/arbitros/form";
     }
 
     @PostMapping
@@ -39,7 +39,7 @@ public class AdminArbitroController {
         if (result.hasErrors()) {
             model.addAttribute("especialidades", Especialidad.values());
             model.addAttribute("escalafones", Escalafon.values());
-            return "arbitros/form";
+            return "admin/arbitros/form";
         }
         if (arbitro.getUsername() == null || arbitro.getUsername().isBlank()) {
             // por simplicidad, usar email como username si no viene
