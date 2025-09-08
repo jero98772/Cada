@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard - CABA Pro</title>
+</head>
+<body>
+<div th:replace="~{fragments/layout :: content}">
+    <h1 class="mb-3">Mi Dashboard</h1>
+
+    <div class="mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="h5 mb-3">Perfil</h2>
+                <p class="mb-1"><strong>Árbitro:</strong> <span th:text="${arbitro != null ? arbitro.nombre + ' ' + arbitro.apellido : 'Desconocido'}"></span></p>
+                <p class="mb-0"><strong>Escalafón:</strong> <span th:text="${arbitro != null ? arbitro.escalafon : '-'}"></span> · <strong>Especialidad:</strong> <span th:text="${arbitro != null ? arbitro.especialidad : '-'}"></span></p>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="h5">Mis asignaciones</h2>
+    <div class="table-responsive">
+        <table class="table table-striped align-middle">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Partido</th>
+                <th>Fecha</th>
+                <th>Rol</th>
+                <th>Estado</th>
+                <th class="text-end">Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="asig : ${asignaciones}">
+                <td th:text="${asig.id}"></td>
+                <td th:text="${'Partido ' + asig.partidoId}"></td>
+                <td th:text="${#temporals.format(#dates.createNow(), 'dd/MM/yyyy HH:mm')}"></td>
+                <td th:text="${asig.rol}"></td>
+                <td>
+                    <span class="badge text-bg-secondary" th:if="${asig.estado.name() == 'PENDIENTE'}">Pendiente</span>
+                    <span class="badge text-bg-success" th:if="${asig.estado.name() == 'ACEPTADA'}">Aceptada</span>
+                    <span class="badge text-bg-danger" th:if="${asig.estado.name() == 'RECHAZADA'}">Rechazada</span>
+                </td>
+                <td class="text-end">
+                    <div class="btn-group" role="group">
+                        <form th:action="@{'/dashboard/asignacion/' + ${asig.id} + '/aceptar'}" method="post">
+                            <button class="btn btn-sm btn-success" type="submit" th:disabled="${asig.estado.name() == 'ACEPTADA'}">Aceptar</button>
+                        </form>
+                        <form th:action="@{'/dashboard/asignacion/' + ${asig.id} + '/rechazar'}" method="post">
+                            <button class="btn btn-sm btn-outline-danger" type="submit" th:disabled="${asig.estado.name() == 'RECHAZADA'}">Rechazar</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            <tr th:if="${asignaciones == null || asignaciones.isEmpty()}">
+                <td colspan="6" class="text-center text-muted">No hay asignaciones</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
+

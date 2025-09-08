@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Torneos - Formulario</title>
+</head>
+<body>
+<div th:replace="~{fragments/layout :: content}">
+    <h1 class="mb-3" th:text="${torneo.id} != null ? 'Editar Torneo' : 'Nuevo Torneo'"></h1>
+
+    <form th:action="${torneo.id} != null ? '/admin/torneos/' + ${torneo.id} : '/admin/torneos'" method="post">
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label class="form-label">Nombre</label>
+                <input class="form-control" type="text" name="nombre" th:value="${torneo.nombre}" required>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Temporada</label>
+                <input class="form-control" type="text" name="temporada" th:value="${torneo.temporada}" placeholder="2025" required>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Activo</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="activo" th:checked="${torneo.activo}">
+                    <label class="form-check-label">Sí</label>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Fecha inicio</label>
+                <input class="form-control" type="date" name="fechaInicio" th:value="${torneo.fechaInicio}">
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Fecha fin</label>
+                <input class="form-control" type="date" name="fechaFin" th:value="${torneo.fechaFin}">
+            </div>
+        </div>
+        <div class="mt-3 d-flex gap-2">
+            <button class="btn btn-primary" type="submit">Guardar</button>
+            <a class="btn btn-secondary" th:href="@{/admin/torneos}">Cancelar</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>
+
