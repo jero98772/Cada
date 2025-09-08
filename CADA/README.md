@@ -1,40 +1,56 @@
-# CABA Pro (Frontend MVC con Spring Boot)
+# CABA Pro (Frontend MVC with Spring Boot)
 
-Aplicación web para gestión de árbitros y torneos (UI/Frontend) construida con Spring Boot 3, Thymeleaf y Spring Security. Esta iteración usa servicios en memoria (sin base de datos), únicamente para navegar la interfaz.
+Web application for referee and tournament management (UI/Frontend) built with Spring Boot 3, Thymeleaf, and Spring Security. This iteration uses in-memory services (no database), only for navigating the interface.
 
-## Requisitos
-- Java 17+
-- Maven 3.9+
+## Requirements
 
-## Ejecutar
+* Java 17+
+* Maven 3.9+
+
+## Run
+
 ```
 mvn spring-boot:run
 ```
-Abrir http://localhost:8080
 
-## Credenciales demo
-- Administrador: admin / admin123
-- Árbitro: arbitro / arbitro123
+Open [http://localhost:8080](http://localhost:8080)
 
-## Rutas
-- `/login` formulario de autenticación
-- `/` redirige según el rol
-- Sección Árbitro
-  - `/dashboard` listado de asignaciones y acciones aceptar/rechazar
-- Sección Admin
-  - `/admin` inicio del panel
-  - `/admin/arbitros` CRUD de árbitros
-  - `/admin/torneos` CRUD de torneos
+## Demo Credentials
 
-## Notas técnicas
-- Seguridad: Spring Security con usuarios en memoria y roles `ROLE_ADMIN` y `ROLE_ARBITRO`.
-- Vistas: Thymeleaf + Bootstrap 5 via CDN; `thymeleaf-extras-springsecurity6` para directivas `sec:authorize`.
-- Datos: servicios en memoria (ConcurrentHashMap) + `MockDataLoader` para sembrar datos.
-- Config: `spring.thymeleaf.cache=false` para facilitar desarrollo.
+* Administrator: admin / admin123
+* Referee: arbitro / arbitro123
 
-## Próximos pasos sugeridos
-- Persistencia real con JPA + MySQL y repositorios.
-- Calendario visual (FullCalendar) en el dashboard.
-- Validaciones con mensajes i18n.
-- Tests de controlador con `@WebMvcTest`.
+## Routes
+
+* `/login` authentication form
+* `/` redirects depending on the role
+* Referee Section
+
+  * `/dashboard` list of assignments and accept/reject actions
+* Admin Section
+
+  * `/admin` admin panel home
+  * `/admin/arbitros` CRUD for referees
+  * `/admin/torneos` CRUD for tournaments
+
+## Technical Notes
+
+* Security: Spring Security with in-memory users and roles `ROLE_ADMIN` and `ROLE_ARBITRO`.
+* Views: Thymeleaf + Bootstrap 5 via CDN; `thymeleaf-extras-springsecurity6` for `sec:authorize` directives.
+* Data: in-memory services (ConcurrentHashMap) + `MockDataLoader` for seeding data.
+* Config: `spring.thymeleaf.cache=false` to ease development.
+
+## Reminder
+
+In the JDBC URL field, change it from:
+
+```
+jdbc:h2:~/test
+```
+
+to:
+
+```
+jdbc:h2:file:./data/cada-db
+```
 
