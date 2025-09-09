@@ -3,7 +3,6 @@ package com.example.CADA.service.impl;
 import com.example.CADA.model.Asignacion;
 import com.example.CADA.model.EstadoAsignacion;
 import com.example.CADA.service.AsignacionService;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +10,7 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
-@Service
+// @Service // deshabilitado: implementación en memoria
 public class InMemoryAsignacionService implements AsignacionService {
 
     private final ConcurrentHashMap<Long, Asignacion> store = new ConcurrentHashMap<>();

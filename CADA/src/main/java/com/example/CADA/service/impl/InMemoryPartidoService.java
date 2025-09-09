@@ -2,7 +2,6 @@ package com.example.CADA.service.impl;
 
 import com.example.CADA.model.Partido;
 import com.example.CADA.service.PartidoService;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +9,7 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
-@Service
+// @Service // deshabilitado: implementación en memoria
 public class InMemoryPartidoService implements PartidoService {
 
     private final ConcurrentHashMap<Long, Partido> store = new ConcurrentHashMap<>();

@@ -2,7 +2,6 @@ package com.example.CADA.service.impl;
 
 import com.example.CADA.model.Torneo;
 import com.example.CADA.service.TorneoService;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +9,7 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
-@Service
+// @Service // deshabilitado: implementación en memoria
 public class InMemoryTorneoService implements TorneoService {
 
     private final ConcurrentHashMap<Long, Torneo> store = new ConcurrentHashMap<>();
