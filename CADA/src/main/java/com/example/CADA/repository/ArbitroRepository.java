@@ -7,5 +7,6 @@ import java.util.Optional;
 
 public interface ArbitroRepository extends JpaRepository<Arbitro, Long> {
     Optional<Arbitro> findByUsername(String username);
+    long countByActivo(boolean activo);
 }
 

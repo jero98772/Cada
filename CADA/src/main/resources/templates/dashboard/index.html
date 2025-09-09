@@ -44,6 +44,34 @@
     <div class="container mt-4">
         <h1 class="mb-3">Mi Dashboard</h1>
         
+        <!-- KPI Cards -->
+        <div class="row g-3 mb-4">
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="fw-bold text-muted">Pendientes</div>
+                        <div class="display-6" th:text="${kpiPendientes}">0</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="fw-bold text-muted">Aceptadas</div>
+                        <div class="display-6" th:text="${kpiAceptadas}">0</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="fw-bold text-muted">Rechazadas</div>
+                        <div class="display-6" th:text="${kpiRechazadas}">0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <!-- Profile Card -->
         <div class="mb-4">
             <div class="card">
@@ -77,6 +105,7 @@
                                 <th>ID</th>
                                 <th>Partido</th>
                                 <th>Fecha</th>
+                                <th>Sede</th>
                                 <th>Rol</th>
                                 <th>Estado</th>
                                 <th class="text-end">Acciones</th>
@@ -86,9 +115,10 @@
                             <!-- Dynamic rows with Thymeleaf -->
                             <tr th:each="asig : ${asignaciones}">
                                 <td th:text="${asig.id}">#001</td>
-                                <td th:text="${'Partido ' + asig.partidoId}">Partido 1</td>
-                                <td th:text="${#temporals.format(#dates.createNow(), 'dd/MM/yyyy HH:mm')}">08/09/2025 15:30</td>
-                                <td th:text="${asig.rol}">Árbitro Principal</td>
+                                <td th:text="${asig.local + ' vs ' + asig.visitante}">Partido</td>
+                                <td th:text="${asig.fecha}">-</td>
+                                <td th:text="${asig.sede}">-</td>
+                                <td th:text="${asig.rol}">Rol</td>
                                 <td>
                                     <span class="badge text-bg-secondary" th:if="${asig.estado.name() == 'PENDIENTE'}">Pendiente</span>
                                     <span class="badge text-bg-success" th:if="${asig.estado.name() == 'ACEPTADA'}">Aceptada</span>
