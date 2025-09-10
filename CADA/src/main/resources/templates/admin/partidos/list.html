@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Partidos - CABA Pro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand" href="/admin">CABA Pro - Admin</a>
+        <div class="navbar-nav ms-auto">
+            <a class="nav-link" href="/admin">Dashboard</a>
+            <a class="nav-link" href="/admin/arbitros">Árbitros</a>
+            <a class="nav-link active" href="/admin/partidos">Partidos</a>
+            <a class="nav-link" href="/admin/torneos">Torneos</a>
+            <a class="nav-link" href="/logout">Cerrar Sesión</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h1 class="mb-0">Gestión de Partidos</h1>
+            <a class="btn btn-primary" th:href="@{/admin/partidos/nuevo}">Nuevo Partido</a>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover align-middle mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Sede</th>
+                            <th>Partido</th>
+                            <th>Torneo</th>
+                            <th>Árbitro</th>
+                            <th class="text-end">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="r : ${rows}">
+                            <td th:text="${r.fechaHora != null ? #temporals.format(r.fechaHora, 'dd/MM/yyyy HH:mm') : '-'}">-</td>
+                            <td th:text="${r.sede}">-</td>
+                            <td th:text="${r.local + ' vs ' + r.visitante}">-</td>
+                            <td>
+                                <span th:if="${r.torneoId == null}" class="text-muted">Sin asignar</span>
+                                <span th:if="${r.torneoId != null}"
+                                      th:text="${r.torneoNombre}">-</span>
+                            </td>
+                            <td>
+                                <span th:if="${r.arbitroId == null}" class="text-muted">Sin árbitro</span>
+                                <span th:if="${r.arbitroId != null}" th:text="${r.arbitroNombre}">-</span>
+                            </td>
+                            <td class="text-end">
+                                <div class="btn-group" role="group">
+                                    <a class="btn btn-sm btn-outline-primary" th:href="@{/admin/partidos/{id}/editar(id=${r.id})}">Editar</a>
+                                    <a class="btn btn-sm btn-outline-secondary" th:href="@{/admin/partidos/{id}/asignaciones(id=${r.id})}">Asignar árbitros</a>
+                                    <form th:action="@{/admin/partidos/{id}/eliminar(id=${r.id})}" method="post">
+                                        <button class="btn btn-sm btn-danger" type="submit" onclick="return confirm('¿Eliminar partido?')">Eliminar</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr th:if="${rows == null || rows.isEmpty()}">
+                            <td colspan="5" class="text-center text-muted py-4">No hay partidos registrados</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

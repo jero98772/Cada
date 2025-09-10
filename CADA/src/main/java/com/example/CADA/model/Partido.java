@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 @Builder
@@ -22,6 +23,10 @@ public class Partido {
     // Simplificado: referencia por ID en lugar de relación
     private Long torneoId;
 
+    // Árbitro principal asignado al partido
+    private Long arbitroId;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime fechaHora;
     private String sede;
     private String equipoLocal;

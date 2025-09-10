@@ -72,6 +72,7 @@ public class MockDataLoader implements CommandLineRunner {
         for (int i = 0; i < 10; i++) {
             Partido p = partidoService.create(Partido.builder()
                     .torneoId(apertura.getId())
+                    .arbitroId(arbitroLogin.getId())
                     .fechaHora(LocalDateTime.now().plusDays(rnd.nextInt(20) - 10))
                     .sede("Cancha " + (i + 1))
                     .equipoLocal("Equipo " + (char)('A' + i))

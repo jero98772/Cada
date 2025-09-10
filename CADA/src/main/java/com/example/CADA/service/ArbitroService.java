@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public interface ArbitroService {
     List<Arbitro> findAll();
+    List<Arbitro> findActivos();
     Optional<Arbitro> findById(Long id);
     Optional<Arbitro> findByUsername(String username);
     Arbitro create(Arbitro arbitro);

@@ -11,9 +11,10 @@
                 </li>
                 <li class="nav-item dropdown" sec:authorize="hasRole('ADMIN')">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Admin</a>
-                    <ul class="dropdown-menu">
+<ul class="dropdown-menu">
                         <li><a class="dropdown-item" th:href="@{/admin}">Inicio</a></li>
                         <li><a class="dropdown-item" th:href="@{/admin/arbitros}">Árbitros</a></li>
+                        <li><a class="dropdown-item" th:href="@{/admin/partidos}">Partidos</a></li>
                         <li><a class="dropdown-item" th:href="@{/admin/torneos}">Torneos</a></li>
                     </ul>
                 </li>

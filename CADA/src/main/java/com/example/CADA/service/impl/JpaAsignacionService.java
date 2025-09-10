@@ -30,6 +30,11 @@ public class JpaAsignacionService implements AsignacionService {
     }
 
     @Override
+    public List<Asignacion> findByPartidoId(Long partidoId) {
+        return repository.findByPartidoId(partidoId);
+    }
+
+    @Override
     public Asignacion create(Asignacion asignacion) {
         asignacion.setId(null);
         return repository.save(asignacion);
@@ -47,6 +52,11 @@ public class JpaAsignacionService implements AsignacionService {
         Asignacion a = repository.findById(asignacionId).orElseThrow();
         a.setEstado(EstadoAsignacion.RECHAZADA);
         return repository.save(a);
+    }
+
+    @Override
+    public void delete(Long asignacionId) {
+        repository.deleteById(asignacionId);
     }
 }
 

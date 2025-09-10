@@ -26,11 +26,37 @@ public class InMemoryPartidoService implements PartidoService {
     }
 
     @Override
+    public List<Partido> findByTorneoId(Long torneoId) {
+        return store.values().stream()
+                .filter(p -> p.getTorneoId() != null && p.getTorneoId().equals(torneoId))
+                .toList();
+    }
+
+    @Override
+    public List<Partido> findUnassigned() {
+        return store.values().stream()
+                .filter(p -> p.getTorneoId() == null)
+                .toList();
+    }
+
+    @Override
     public Partido create(Partido partido) {
         long id = seq.incrementAndGet();
         partido.setId(id);
         store.put(id, partido);
         return partido;
+    }
+
+    @Override
+    public Partido update(Long id, Partido partido) {
+        partido.setId(id);
+        store.put(id, partido);
+        return partido;
+    }
+
+    @Override
+    public void delete(Long id) {
+        store.remove(id);
     }
 }
 

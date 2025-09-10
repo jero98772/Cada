@@ -8,5 +8,7 @@ import java.util.List;
 
 public interface PartidoRepository extends JpaRepository<Partido, Long> {
     List<Partido> findTop5ByFechaHoraAfterOrderByFechaHoraAsc(LocalDateTime now);
+    List<Partido> findByTorneoId(Long torneoId);
+    List<Partido> findByTorneoIdIsNull();
 }
 

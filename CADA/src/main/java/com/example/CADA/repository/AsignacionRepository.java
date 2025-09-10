@@ -9,6 +9,7 @@ import com.example.CADA.model.EstadoAsignacion;
 
 public interface AsignacionRepository extends JpaRepository<Asignacion, Long> {
     List<Asignacion> findByArbitroId(Long arbitroId);
+    List<Asignacion> findByPartidoId(Long partidoId);
     long countByEstado(EstadoAsignacion estado);
     long countByArbitroIdAndEstado(Long arbitroId, EstadoAsignacion estado);
 }

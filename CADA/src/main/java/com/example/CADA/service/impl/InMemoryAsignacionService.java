@@ -29,6 +29,13 @@ public class InMemoryAsignacionService implements AsignacionService {
     }
 
     @Override
+    public List<Asignacion> findByPartidoId(Long partidoId) {
+        return store.values().stream()
+                .filter(a -> a.getPartidoId() != null && a.getPartidoId().equals(partidoId))
+                .toList();
+    }
+
+    @Override
     public Asignacion create(Asignacion asignacion) {
         long id = seq.incrementAndGet();
         asignacion.setId(id);
@@ -44,6 +51,11 @@ public class InMemoryAsignacionService implements AsignacionService {
     @Override
     public Asignacion rechazar(Long asignacionId) {
         return updateEstado(asignacionId, EstadoAsignacion.RECHAZADA);
+    }
+
+    @Override
+    public void delete(Long asignacionId) {
+        store.remove(asignacionId);
     }
 
     private Asignacion updateEstado(Long id, EstadoAsignacion estado) {

@@ -30,9 +30,30 @@ public class JpaPartidoService implements PartidoService {
     }
 
     @Override
+    public List<Partido> findByTorneoId(Long torneoId) {
+        return repository.findByTorneoId(torneoId);
+    }
+
+    @Override
+    public List<Partido> findUnassigned() {
+        return repository.findByTorneoIdIsNull();
+    }
+
+    @Override
     public Partido create(Partido partido) {
         partido.setId(null);
         return repository.save(partido);
+    }
+
+    @Override
+    public Partido update(Long id, Partido partido) {
+        partido.setId(id);
+        return repository.save(partido);
+    }
+
+    @Override
+    public void delete(Long id) {
+        repository.deleteById(id);
     }
 }
 

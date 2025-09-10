@@ -105,11 +105,16 @@
                                 <td class="text-end table-actions">
                                     <div class="btn-group" role="group">
                                         <a class="btn btn-sm btn-outline-primary" 
-                                           th:href="@{'/admin/torneos/' + ${t.id} + '/editar'}"
+                                           th:href="@{/admin/torneos/{id}/editar(id=${t.id})}"
                                            title="Editar torneo">
                                             Editar
                                         </a>
-                                        <form th:action="@{'/admin/torneos/' + ${t.id} + '/toggle-activo'}" method="post">
+                                        <a class="btn btn-sm btn-outline-secondary"
+                                           th:href="@{/admin/torneos/{id}/partidos(id=${t.id})}"
+                                           title="Gestionar partidos">
+                                            Partidos
+                                        </a>
+                                        <form th:action="@{/admin/torneos/{id}/toggle-activo(id=${t.id})}" method="post">
                                             <button class="btn btn-sm" 
                                                     th:classappend="${t.activo} ? 'btn-warning' : 'btn-success'" 
                                                     th:text="${t.activo} ? 'Desactivar' : 'Activar'"
@@ -118,7 +123,7 @@
                                                 Activar
                                             </button>
                                         </form>
-                                        <form th:action="@{'/admin/torneos/' + ${t.id} + '/eliminar'}" method="post">
+                                        <form th:action="@{/admin/torneos/{id}/eliminar(id=${t.id})}" method="post">
                                             <button class="btn btn-sm btn-danger" 
                                                     type="submit"
                                                     onclick="return confirm('¿Está seguro que desea eliminar este torneo? Esta acción no se puede deshacer.')"

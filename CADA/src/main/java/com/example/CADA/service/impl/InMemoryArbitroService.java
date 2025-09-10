@@ -21,6 +21,11 @@ public class InMemoryArbitroService implements ArbitroService {
     }
 
     @Override
+    public List<Arbitro> findActivos() {
+        return store.values().stream().filter(Arbitro::isActivo).toList();
+    }
+
+    @Override
     public Optional<Arbitro> findById(Long id) {
         return Optional.ofNullable(store.get(id));
     }

@@ -3,6 +3,8 @@ package com.example.CADA.service.impl;
 import com.example.CADA.model.Arbitro;
 import com.example.CADA.repository.ArbitroRepository;
 import com.example.CADA.service.ArbitroService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,8 @@ import java.util.Optional;
 @Primary
 public class JpaArbitroService implements ArbitroService {
 
+    private static final Logger log = LoggerFactory.getLogger(JpaArbitroService.class);
+
     private final ArbitroRepository repository;
 
     public JpaArbitroService(ArbitroRepository repository) {
@@ -22,6 +26,16 @@ public class JpaArbitroService implements ArbitroService {
     @Override
     public List<Arbitro> findAll() {
         return repository.findAll();
+    }
+
+    @Override
+    public List<Arbitro> findActivos() {
+        List<Arbitro> list = repository.findByActivoTrue();
+        try {
+            long activos = repository.countByActivo(true);
+            log.debug("Arbitros activos: repo.count={}, lista.size={}", activos, list.size());
+        } catch (Exception ignored) {}
+        return list;
     }
 
     @Override

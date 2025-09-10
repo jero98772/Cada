@@ -7,8 +7,10 @@ import java.util.List;
 public interface AsignacionService {
     List<Asignacion> findAll();
     List<Asignacion> findByArbitroId(Long arbitroId);
+    List<Asignacion> findByPartidoId(Long partidoId);
     Asignacion create(Asignacion asignacion);
     Asignacion aceptar(Long asignacionId);
     Asignacion rechazar(Long asignacionId);
+    void delete(Long asignacionId);
 }
 
