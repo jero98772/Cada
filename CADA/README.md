@@ -32,13 +32,24 @@ Open [http://localhost:8080](http://localhost:8080)
   * `/admin` admin panel home
   * `/admin/arbitros` CRUD for referees
   * `/admin/torneos` CRUD for tournaments
+  * `/admin/partidos` CRUD for Matches
+  * `/admin/partidos/1/asignaciones` assigment for referees
+
 
 ## Technical Notes
 
 * Security: Spring Security with in-memory users and roles `ROLE_ADMIN` and `ROLE_ARBITRO`.
 * Views: Thymeleaf + Bootstrap 5 via CDN; `thymeleaf-extras-springsecurity6` for `sec:authorize` directives.
-* Data: in-memory services (ConcurrentHashMap) + `MockDataLoader` for seeding data.
+* Data: in-memory services (`ConcurrentHashMap`) + `MockDataLoader` for seeding data.
 * Config: `spring.thymeleaf.cache=false` to ease development.
+
+## Suggested Next Steps
+
+* Real persistence with JPA + MySQL and repositories.
+* Visual calendar (FullCalendar) in the dashboard.
+* Validations with i18n messages.
+* Controller tests with `@WebMvcTest`.
+
 
 ## Reminder
 
