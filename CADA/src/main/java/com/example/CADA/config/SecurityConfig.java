@@ -39,13 +39,17 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**", "/login").permitAll()
-                .requestMatchers("/admin/**").hasRole("ADMIN")
-                .requestMatchers("/dashboard/**").hasRole("ARBITRO")
-                .anyRequest().authenticated()
-            )
+		http
+			.authorizeHttpRequests(auth -> auth
+				.requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**", "/login").permitAll()
+				// Swagger UI y OpenAPI docs
+				.requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
+				// API REST endpoints
+				.requestMatchers("/api/**").permitAll()
+				.requestMatchers("/admin/**").hasRole("ADMIN")
+				.requestMatchers("/dashboard/**").hasRole("ARBITRO")
+				.anyRequest().authenticated()
+			)
             .formLogin(login -> login
                 .loginPage("/login").permitAll()
                 .successHandler((req, res, authn) -> res.sendRedirect("/"))
