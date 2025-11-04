@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  spring-api:
+    build:
+      context: ./CADA
+      dockerfile: Dockerfile
+    container_name: cada-spring-api
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=default
+    networks:
+      - cada-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  express-api:
+    build:
+      context: ./arbitros-express
+      dockerfile: Dockerfile
+    container_name: cada-express-api
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - SPRING_API_BASE_URL=http://spring-api:8080/api
+      - AWS_REGION=${AWS_REGION:-us-east-1}
+      - S3_BUCKET=${S3_BUCKET:-your-arbitros-bucket}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID:-your_key}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY:-your_secret}
+    depends_on:
+      spring-api:
+        condition: service_healthy
+    networks:
+      - cada-network
+
+networks:
+  cada-network:
+    driver: bridge
