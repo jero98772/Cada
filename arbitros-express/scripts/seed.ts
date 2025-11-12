@@ -6,7 +6,10 @@ import { uploadPublic } from '../src/services/s3.service'
 
 dotenv.config()
 
-const client = axios.create({ baseURL: env.SPRING_API_BASE_URL, timeout: 15000 })
+const client = axios.create({
+	baseURL: env.SPRING_API_BASE_URL,
+	timeout: 15000,
+})
 
 if (process.env.SEED_BEARER) {
 	client.interceptors.request.use((cfg) => {
@@ -83,12 +86,22 @@ async function seed(count = 8) {
 		try {
 			const buf = await getPlaceholderBuffer()
 			const key = `arbitros/seeds/${uuid()}.jpg`
-			const avatarUrl = await uploadPublic({ buffer: buf, key, contentType: 'image/jpeg' })
+			const avatarUrl = await uploadPublic({
+				buffer: buf,
+				key,
+				contentType: 'image/jpeg',
+			})
 			const payload = buildArbitro(i + 1, avatarUrl)
-			const { data } = await client.post('/arbitros', payload)
-			console.log(`created: ${payload.nombre} ${payload.apellido}`, data?.id || '')
+			const { data } = await client.post('/api/v1/arbitros', payload)
+			console.log(
+				`created: ${payload.nombre} ${payload.apellido}`,
+				data?.id || '',
+			)
 		} catch (err: any) {
-			console.error('error seeding arbitro', err?.response?.data || err?.message)
+			console.error(
+				'error seeding arbitro',
+				err?.response?.data || err?.message,
+			)
 		}
 	}
 	console.log('Seed complete')

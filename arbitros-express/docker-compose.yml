@@ -10,7 +10,7 @@ services:
       - "3000:3000"
     environment:
       - PORT=3000
-      - SPRING_API_BASE_URL=${SPRING_API_BASE_URL:-http://localhost:8080/api}
+      - SPRING_API_BASE_URL=${SPRING_API_BASE_URL:-http://localhost:8080}
       - AWS_REGION=${AWS_REGION:-us-east-1}
       - S3_BUCKET=${S3_BUCKET:-your-arbitros-bucket}
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID:-your_key}

@@ -13,12 +13,20 @@ Spring Boot del Entregable 2. Las imágenes se suben a S3 con acceso público.
 1. Copia `.env.example` a `.env` y ajusta variables:
 ```
 PORT=3000
-SPRING_API_BASE_URL=http://localhost:8080/api
+SPRING_API_BASE_URL=http://localhost:8080
 AWS_REGION=us-east-1
 S3_BUCKET=your-arbitros-bucket
 AWS_ACCESS_KEY_ID=your_key
 AWS_SECRET_ACCESS_KEY=your_secret
 ```
+
+**Importante:** `SPRING_API_BASE_URL` debe ser la URL base del servidor CADA **sin** el prefijo `/api/v1`. 
+- Para desarrollo local: `http://localhost:8080`
+- Para producción: `https://tu-dominio-cada.com` (o la URL donde esté desplegada tu app CADA)
+
+Las rutas en el código ya incluyen `/api/v1/`, así que las llamadas completas serán:
+- `{SPRING_API_BASE_URL}/api/v1/arbitros`
+
 2. Instala dependencias y arranca:
 ```
 npm install
